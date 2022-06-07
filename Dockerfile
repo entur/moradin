@@ -1,4 +1,4 @@
-FROM node:17-alpine3.14
+FROM node:16-alpine3.14
 
 ENV WORKDIR /home/importer
 ENV CLOUDSDK_INSTALL_DIR /usr/local/gcloud/
