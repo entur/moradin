@@ -1,0 +1,4 @@
+env: production
+replicas: 1
+
+gcsBasePath: gs://bahamut-prod/

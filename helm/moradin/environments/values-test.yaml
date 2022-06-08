@@ -1,0 +1,4 @@
+env: test
+replicas: 1
+
+gcsBasePath: gs://bahamut-test/

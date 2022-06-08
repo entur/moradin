@@ -1,0 +1,5 @@
+env: dev
+replicas: 1
+
+gcsBasePath: gs://bahamut-dev/
+
