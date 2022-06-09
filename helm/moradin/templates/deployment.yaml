@@ -28,10 +28,6 @@ spec:
           env:
             - name: TZ
               value: Europe/Oslo
-            - name: GCS_BASE_PATH
-              value: {{.Values.gcpBasePath}}
-            - name: GCP_SA_KEY
-              value: {{ .Values.secretMount.mountPath }}
           ports:
             - containerPort: 9200
               protocol: TCP
