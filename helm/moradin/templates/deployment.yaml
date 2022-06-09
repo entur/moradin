@@ -70,6 +70,9 @@ spec:
               mountPath: {{ .Values.secretMount.mountPath }}
               subPath: {{ .Values.secretMount.subPath }}
               readOnly: {{ .Values.secretMount.readOnly }}
+            - name: application-config
+              mountPath: /etc/application-config
+              readOnly: true
           env:
             - name: GCS_BASE_PATH
               value: {{.Values.gcsBasePath}}
