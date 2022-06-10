@@ -2,6 +2,14 @@
 
 echo "Start executing the script"
 
+waiting="1"
+until [[ $waiting -eq "0" ]]; do
+  echo "Waiting for elasticsearch..."
+  sleep 1
+  curl -X GET "http://127.0.0.1:9200/_cluster/health?wait_for_status=green&timeout=50s&pretty"
+  waiting=$?
+done
+
 gcloud auth activate-service-account --key-file "$GCP_SA_KEY"
 
 basePath=$GCS_BASE_PATH
