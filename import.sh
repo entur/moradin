@@ -26,7 +26,7 @@ if [ ! -e "$current" ]; then
   echo "no current file found, exit!"
   exit 1
 else
-  echo "extracting current es-data file"
+  echo "extracting current csv data file"
   mkdir csv
   unzip "$zipFileNameLocal" -d csv <<<'y'
 fi
@@ -42,4 +42,11 @@ else
   echo "Importing csv data into elasticsearch..."
   cd "$WORKDIR"/node_modules/pelias-csv-importer || exit
   ./bin/start
+  if [ $? == 1 ]; then
+    echo "Failed to import csv file."
+  else
+    echo "CSV file imported into elasticsearch, Starting Pelias API"
+    cd "$WORKDIR"/node_modules/pelais-api || exit
+    ./bin/start
+  fi
 fi

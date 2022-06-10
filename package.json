@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "pelias-schema": "^6.4.0",
-    "pelias-csv-importer": "^2.13.0"
+    "pelias-csv-importer": "^2.13.0",
+    "pelias-api": "^5.53.0"
   }
 }
