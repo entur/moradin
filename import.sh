@@ -54,7 +54,7 @@ else
     echo "Failed to import csv file."
   else
     echo "CSV file imported into elasticsearch, Starting Pelias API"
-    cd "$WORKDIR"/node_modules/pelais-api || exit
+    cd "$WORKDIR"/node_modules/pelias-api || exit
     ./bin/start
   fi
 fi
