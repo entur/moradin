@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Start executing the script"
+echo "Start executing the moradin script"
 
 waiting="1"
 until [[ $waiting -eq "0" ]]; do
@@ -10,10 +10,12 @@ until [[ $waiting -eq "0" ]]; do
   waiting=$?
 done
 
+echo "Elasticsearch up and running."
+
 gcloud auth activate-service-account --key-file "$GCP_SA_KEY"
 
 basePath=$GCS_BASE_PATH
-filePath=$(gsutil cat ${basePath}current)
+filePath=$(gsutil cat "${basePath}"current)
 currentPath=$basePath$filePath
 
 zipFileNameLocal="tiamat_export_geocoder_latest.zip"
@@ -58,3 +60,5 @@ else
     ./bin/start
   fi
 fi
+
+echo "Finished with the moradin script."

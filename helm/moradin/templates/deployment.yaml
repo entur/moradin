@@ -24,7 +24,7 @@ spec:
       containers:
         - name: elasticsearch
           image: {{ .Values.images.elasticsearch }}
-          imagePullPolicy: Always
+          imagePullPolicy: {{ .Values.images.imagePullPolicy }}
           env:
             - name: TZ
               value: Europe/Oslo
@@ -58,9 +58,9 @@ spec:
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
 
-        - name: {{ .Chart.Name }}-importer
-          image: {{ .Values.images.importer.identifier }}
-          imagePullPolicy: {{ .Values.images.importer.imagePullPolicy }}
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.images.moradin }}
+          imagePullPolicy: {{ .Values.images.imagePullPolicy }}
           volumeMounts:
             - name: {{ .Values.secretMount.name }}
               mountPath: {{ .Values.secretMount.mountPath }}
@@ -78,8 +78,6 @@ spec:
               value: {{.Values.gcsBasePath}}
             - name: GCP_SA_KEY
               value: {{ .Values.secretMount.mountPath }}
-            - name: PELIAS_CONFIG
-              value: /etc/application-config/pelias.json
           resources:
             limits:
               cpu: 1

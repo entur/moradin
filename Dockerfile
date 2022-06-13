@@ -1,6 +1,6 @@
 FROM node:16-alpine3.14
 
-ENV WORKDIR /home/importer
+ENV WORKDIR /home/moradin
 ENV CLOUDSDK_INSTALL_DIR /usr/local/gcloud/
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
@@ -12,13 +12,17 @@ RUN curl -sSL https://sdk.cloud.google.com | bash
 # change working dir
 WORKDIR ${WORKDIR}
 
-COPY import.sh ${WORKDIR}
 COPY package.json ${WORKDIR}
 RUN npm install
+
+# Setup pelias configuration
+COPY pelias.json ${WORKDIR}
+ENV PELIAS_CONFIG ${WORKDIR}/pelias.json
+
+COPY moradin.sh ${WORKDIR}
 
 RUN chown -R node:node ${WORKDIR}
 
 USER node
 
-# TODO: Override pelias.json, Hvordan ?
-ENTRYPOINT ["/home/importer/import.sh"]
+ENTRYPOINT ["/home/moradin/moradin.sh"]

@@ -14,9 +14,8 @@ resources:
 images:
   elasticsearch: pelias/elasticsearch:7.16.1
   pelias: pelias/api:v5.53.0
-  importer:
-    identifier: ${artifact.metadata.image}
-    imagePullPolicy: Always
+  moradin: ${artifact.metadata.image}
+  imagePullPolicy: Always
 
 secretMount:
   name: moradin-key
