@@ -1,10 +1,11 @@
 apiVersion: v1
 appVersion: "0.1.0"
-description: geocoder
+description: geocoderv2
 name: moradin
 version: 0.1.0
 keywords:
-- geocoder-deployment-config
+- moradin
+- geocoderv2
 sources:
 - https://github.com/entur/moradin
 maintainers:
