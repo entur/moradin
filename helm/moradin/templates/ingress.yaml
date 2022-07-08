@@ -13,6 +13,9 @@ spec:
     - host: {{ template "app.name" . }}.{{ .Release.Namespace }}.entur.org
       http:
         paths:
-          - backend:
-              serviceName: {{ template "app.name" . }}
-              servicePort: {{ .Values.service.http.externalPort }}
+          - pathType: ImplementationSpecific
+            backend:
+              service:
+               name: {{ template "app.name" . }}
+               port:
+                 number: {{ .Values.service.http.externalPort }}
