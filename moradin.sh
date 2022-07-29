@@ -15,10 +15,10 @@ echo "Elasticsearch up and running."
 gcloud auth activate-service-account --key-file "$GCP_SA_KEY"
 
 basePath=$GCS_BASE_PATH
-filePath=$(gsutil cat "${basePath}"current)
-currentPath=$basePath$filePath
+fileName=$(gsutil cat "${basePath}"current)
+currentPath=$basePath$fileName
 
-zipFileNameLocal="tiamat_export_geocoder_latest.zip"
+zipFileNameLocal=$fileName
 
 gsutil -m cp "$currentPath" "$zipFileNameLocal" 2>temp
 if [ $? == 1 ]; then

@@ -1,5 +1,7 @@
 Docker image for downloading and CSV zip file from GCS and import it in elasticsearch.
 
+Moradin is the bash script which performs the following functionalities.
+
 ##Requirements:
 - Elasticsearch up and running. Host and port for running elasticsearch via pelias configuration.
 - Service account for accessing the bucket where the CSV zip file exists.

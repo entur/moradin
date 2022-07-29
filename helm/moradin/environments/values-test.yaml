@@ -2,3 +2,7 @@ env: test
 replicas: 1
 
 gcsBasePath: gs://bahamut-test/
+
+cronjobRedeployMoradin:
+  cloudsdkCoreProject: entur-test-1287
+  slackName: ror-staging-slack-url
