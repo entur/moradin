@@ -65,6 +65,6 @@ spec:
             - name: {{ .Values.secretMount.name }}
               secret:
                 secretName: {{ .Values.secretMount.secretName }}
-  schedule: '*/1 * * * *'
+  schedule: '0/30 * * * *'
   successfulJobsHistoryLimit: {{ .Values.cronjobRedeployMoradin.successfulJobsHistoryLimit }}
   suspend: false
