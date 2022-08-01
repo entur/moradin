@@ -1,4 +1,4 @@
-FROM node:18-alpine3.14
+FROM node:18-alpine3.16
 
 ENV WORKDIR /home/moradin
 ENV CLOUDSDK_INSTALL_DIR /usr/local/gcloud/
