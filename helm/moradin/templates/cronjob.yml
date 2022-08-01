@@ -39,7 +39,7 @@ spec:
                       name: {{ .Values.cronjobRedeployMoradin.slackName }}
               image: {{ .Values.cronjobRedeployMoradin.image.repo }}
               imagePullPolicy: IfNotPresent
-              name: redeploy-otp2-job
+              name: job-redeploy-moradin
               resources:
                 limits:
                   cpu: {{ .Values.cronjobRedeployMoradin.resources.cpuLimit }}
