@@ -22,11 +22,6 @@ spec:
                   value: {{ .Values.cronjob.cloudsdkCoreProject }}
                 - name: DEPLOYMENT
                   value: {{ template "app.name" . }}
-                - name: SLACK_URL
-                  valueFrom:
-                    secretKeyRef:
-                      key: slack-url
-                      name: {{ .Values.cronjob.slackName }}
               image: {{ .Values.cronjob.image.repo }}
               imagePullPolicy: IfNotPresent
               name: job-redeploy-moradin
@@ -39,16 +34,11 @@ spec:
                   memory: {{ .Values.cronjob.resources.memRequest }}
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
-              volumeMounts:
-                - name: {{ .Values.secretMount.name }}
-                  mountPath: {{ .Values.secretMount.mountPath }}
-                  subPath: {{ .Values.secretMount.subPath }}
-                  readOnly: {{ .Values.secretMount.readOnly }}
           dnsPolicy: ClusterFirst
           restartPolicy: Never
           schedulerName: default-scheduler
           serviceAccountName: cronjob-redeploy-{{ template "app.name" . }}
           terminationGracePeriodSeconds: 30
-  schedule: '0/30 * * * *'
+  schedule: '0 0 * * *'
   successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
   suspend: false
