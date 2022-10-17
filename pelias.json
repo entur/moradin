@@ -21,7 +21,8 @@
       "csv": [
         "address"
       ]
-    }
+    },
+    "textAnalyzer": "addressit"
   },
   "logger": {
     "level": "debug"

@@ -1,8 +1,6 @@
 env: production
 replicas: 1
 
-gcsBasePath: gs://bahamut-prod/
-
-cronjobRedeployMoradin:
+cronjob:
   cloudsdkCoreProject: entur-prod-1287
   slackName: ror-prod-slack-url

@@ -34,7 +34,7 @@ horizontalPodAutoscaler:
   minReplicas: 1
   targetCPUUtilizationPercentage: 80
 
-cronjobRedeployMoradin:
+cronjob:
   enabled: true
   concurrencyPolicy: Replace
   failedJobsHistoryLimit: 1

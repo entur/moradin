@@ -6,43 +6,37 @@ metadata:
   name: cronjob-redeploy-{{ template "app.name" . }}
   namespace: {{ .Release.Namespace }}
 spec:
-  concurrencyPolicy: {{ .Values.cronjobRedeployMoradin.concurrencyPolicy }}
-  failedJobsHistoryLimit: {{ .Values.cronjobRedeployMoradin.failedJobsHistoryLimit }}
+  concurrencyPolicy: {{ .Values.cronjob.concurrencyPolicy }}
+  failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit }}
   jobTemplate:
     spec:
       template:
         spec:
           containers:
             - command:
-                - ./redeploy_on_change_deployment.sh
+                - ./redeploy_generic_deployment.sh
               env:
                 - name: TZ
                   value: Europe/Oslo
                 - name: CLOUDSDK_CORE_PROJECT
-                  value: {{ .Values.cronjobRedeployMoradin.cloudsdkCoreProject }}
-                - name: CURRENT_FILE_PATH
-                  value: {{.Values.gcsBasePath}}current
-                - name: LAST_FILE_PATH
-                  value: {{.Values.gcsBasePath}}last
+                  value: {{ .Values.cronjob.cloudsdkCoreProject }}
                 - name: DEPLOYMENT
                   value: {{ template "app.name" . }}
-                - name: CREDENTIALS_FILE_PATH
-                  value: {{ .Values.secretMount.mountPath }}
                 - name: SLACK_URL
                   valueFrom:
                     secretKeyRef:
                       key: slack-url
-                      name: {{ .Values.cronjobRedeployMoradin.slackName }}
-              image: {{ .Values.cronjobRedeployMoradin.image.repo }}
+                      name: {{ .Values.cronjob.slackName }}
+              image: {{ .Values.cronjob.image.repo }}
               imagePullPolicy: IfNotPresent
               name: job-redeploy-moradin
               resources:
                 limits:
-                  cpu: {{ .Values.cronjobRedeployMoradin.resources.cpuLimit }}
-                  memory: {{ .Values.cronjobRedeployMoradin.resources.memLimit }}
+                  cpu: {{ .Values.cronjob.resources.cpuLimit }}
+                  memory: {{ .Values.cronjob.resources.memLimit }}
                 requests:
-                  cpu: {{ .Values.cronjobRedeployMoradin.resources.cpuRequest }}
-                  memory: {{ .Values.cronjobRedeployMoradin.resources.memRequest }}
+                  cpu: {{ .Values.cronjob.resources.cpuRequest }}
+                  memory: {{ .Values.cronjob.resources.memRequest }}
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
               volumeMounts:
@@ -53,13 +47,8 @@ spec:
           dnsPolicy: ClusterFirst
           restartPolicy: Never
           schedulerName: default-scheduler
-          serviceAccount: cronjob-redeploy-{{ template "app.name" . }}
           serviceAccountName: cronjob-redeploy-{{ template "app.name" . }}
           terminationGracePeriodSeconds: 30
-          volumes:
-            - name: {{ .Values.secretMount.name }}
-              secret:
-                secretName: {{ .Values.secretMount.secretName }}
   schedule: '0/30 * * * *'
-  successfulJobsHistoryLimit: {{ .Values.cronjobRedeployMoradin.successfulJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
   suspend: false

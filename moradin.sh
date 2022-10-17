@@ -12,9 +12,7 @@ done
 
 echo "Elasticsearch up and running."
 
-gcloud auth activate-service-account --key-file "$GCP_SA_KEY"
-
-basePath=$GCS_BASE_PATH
+basePath=gs://"$BUCKET_NAME"/import
 fileName=$(gsutil cat "${basePath}"current)
 currentPath=$basePath$fileName
 

@@ -50,10 +50,10 @@ spec:
                   - sleep 30
           resources:
             limits:
-              cpu: 1
+              cpu: 100m
               memory: 1600Mi
             requests:
-              cpu: 1
+              cpu: 100m
               memory: 1600Mi
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
@@ -61,26 +61,17 @@ spec:
         - name: {{ .Chart.Name }}
           image: {{ .Values.images.moradin }}
           imagePullPolicy: {{ .Values.images.imagePullPolicy }}
-          volumeMounts:
-            - name: {{ .Values.secretMount.name }}
-              mountPath: {{ .Values.secretMount.mountPath }}
-              subPath: {{ .Values.secretMount.subPath }}
-              readOnly: {{ .Values.secretMount.readOnly }}
           env:
             - name: TZ
               value: Europe/Oslo
             - name: PORT
               value: "4000"
-            - name: GCS_BASE_PATH
-              value: {{.Values.gcsBasePath}}
-            - name: GCP_SA_KEY
-              value: {{ .Values.secretMount.mountPath }}
           resources:
             limits:
-              cpu: 1
+              cpu: 100m
               memory: 1000Mi
             requests:
-              cpu: 1
+              cpu: 100m
               memory: 1000Mi
           ports:
             - containerPort: 4000
@@ -100,10 +91,19 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
-      securityContext: { }
+      serviceAccountName: application
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
       terminationGracePeriodSeconds: 45
-      volumes:
-        - name: {{ .Values.secretMount.name }}
-          secret:
-            secretName: {{ .Values.secretMount.secretName }}
-
+      topologySpreadConstraints:
+        - maxSkew: 3
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: {{ template "app.name" . }}
+        - maxSkew: 5
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
