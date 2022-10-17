@@ -39,11 +39,6 @@ spec:
                   memory: {{ .Values.cronjob.resources.memRequest }}
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
-              volumeMounts:
-                - name: {{ .Values.secretMount.name }}
-                  mountPath: {{ .Values.secretMount.mountPath }}
-                  subPath: {{ .Values.secretMount.subPath }}
-                  readOnly: {{ .Values.secretMount.readOnly }}
           dnsPolicy: ClusterFirst
           restartPolicy: Never
           schedulerName: default-scheduler
