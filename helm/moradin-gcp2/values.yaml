@@ -1,0 +1,29 @@
+common:
+  app: moradin
+  configmap:
+    data:
+      TZ: Europe/Oslo
+    enabled: true
+    toEnv: true
+  container:
+    image: ${artifact.metadata.image}
+    memory: '1600'
+    probes:
+      liveness:
+        path: _cluster/health?wait_for_status=yellow&timeout=120s
+      readiness:
+        path: _cluster/health?wait_for_status=yellow&timeout=120s
+    volumes:
+    - name: moradin-key
+      secret:
+        secretName: ror-moradin-sa-key
+  ingress:
+    host: moradin.dev.entur.org
+    trafficType: public
+  postgres:
+    enabled: true
+    memory: '1000'
+  service:
+    internalPort: 4000
+  shortname: moradin 
+  team: ror 
