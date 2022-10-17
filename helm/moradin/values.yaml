@@ -17,13 +17,6 @@ images:
   moradin: ${artifact.metadata.image}
   imagePullPolicy: Always
 
-secretMount:
-  name: moradin-key
-  mountPath: /etc/moradin/credentials.json
-  subPath: credentials.json
-  secretName: ror-moradin-sa-key
-  readOnly: true
-
 service:
   http:
     externalPort: 80
