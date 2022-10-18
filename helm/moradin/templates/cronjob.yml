@@ -22,6 +22,11 @@ spec:
                   value: {{ .Values.cronjob.cloudsdkCoreProject }}
                 - name: DEPLOYMENT
                   value: {{ template "app.name" . }}
+                - name: SLACK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      key: slack-url
+                      name: {{ .Values.cronjob.slackName }}
               image: {{ .Values.cronjob.image.repo }}
               imagePullPolicy: IfNotPresent
               name: job-redeploy-moradin
