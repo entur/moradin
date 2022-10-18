@@ -34,3 +34,11 @@ slack: talk-ror
 type: cronjob
 namespace: {{ .Release.Namespace }}
 {{- end }}
+
+
+{{- range $name, $config := .Values.slackUrlSecret -}}
+{{ if typeOf $config | eq "string" }}
+{{ $name }}: |
+{{- tpl $config $ | nindent 12 }}
+{{ end }}
+{{ end }}
