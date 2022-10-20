@@ -66,6 +66,9 @@ spec:
               value: Europe/Oslo
             - name: PORT
               value: "4000"
+          envFrom:
+            - configMapRef:
+                name: {{ template "app.name" . }}-bucket
           resources:
             limits:
               cpu: 1
