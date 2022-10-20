@@ -12,13 +12,13 @@ done
 
 echo "Elasticsearch up and running."
 
-basePath=gs://"$BUCKET_NAME"/import
-fileName=$(gsutil cat "${basePath}"current)
-currentPath=$basePath$fileName
+importPath=gs://"$BUCKET_NAME"/import
+echo "Reading files from $importPath"
+fileName=$(gsutil ls "${importPath} | sort -k 2")
 
-zipFileNameLocal=$fileName
+zipFileNameLocal="haya_latest.zip"
 
-gsutil -m cp "$currentPath" "$zipFileNameLocal" 2>temp
+gsutil -m cp "$fileName" "$zipFileNameLocal" 2>temp
 if [ $? == 1 ]; then
   grep 'CommandException' temp
   if [ $? == 0 ]; then
