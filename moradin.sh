@@ -14,7 +14,7 @@ echo "Elasticsearch up and running."
 
 importPath=gs://"$BUCKET_NAME"/import
 echo "Reading files from $importPath"
-fileName=$(gsutil ls "${importPath} | sort -k 2")
+fileName=$(gsutil ls "$importPath" | sort -k 2)
 
 zipFileNameLocal="haya_latest.zip"
 
@@ -34,7 +34,7 @@ if [ ! -e "$current" ]; then
   echo "no current file found, exit!"
   exit 1
 else
-  echo "extracting current csv data file"
+  echo "extracting $zipFileNameLocal"
   mkdir csv
   unzip "$zipFileNameLocal" -d csv <<<'y'
 fi
