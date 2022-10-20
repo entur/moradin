@@ -14,7 +14,7 @@ echo "Elasticsearch up and running."
 
 importPath=gs://"$BUCKET_NAME"/import
 echo "Reading files from $importPath"
-fileName=$(gsutil ls "${importPath} | sort -k 2")
+fileName=$(gsutil ls "$importPath" | sort -k 2)
 
 zipFileNameLocal="haya_latest.zip"
 
