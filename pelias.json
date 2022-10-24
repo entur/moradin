@@ -16,11 +16,11 @@
           "stop_place",
           "stop_place_child",
           "stop_place_parent"
+        ],
+        "kartverket": [
+          "address"
         ]
-      },
-      "kartverket": [
-        "address"
-      ]
+      }
     },
     "textAnalyzer": "addressit"
   },
