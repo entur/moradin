@@ -42,3 +42,6 @@ cronjob:
     repo: eu.gcr.io/entur-system-1287/deployment-rollout-restart:0.1.6
 
 slackUrlSecret : ${serviceVariable.slackUrlSecret}
+
+ingress:
+  name: geocoder-v2

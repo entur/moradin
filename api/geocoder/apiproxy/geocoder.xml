@@ -18,12 +18,12 @@
         <Policy>extractVariable.etClientHeaders</Policy>
     </Policies>
     <ProxyEndpoints>
-        <ProxyEndpoint>geocoder-v1</ProxyEndpoint>
+        <ProxyEndpoint>geocoder-v2</ProxyEndpoint>
     </ProxyEndpoints>
     <Resources/>
     <Spec></Spec>
     <TargetServers/>
     <TargetEndpoints>
-        <TargetEndpoint>geocoder-v1</TargetEndpoint>
+        <TargetEndpoint>geocoder-v2</TargetEndpoint>
     </TargetEndpoints>
 </APIProxy>

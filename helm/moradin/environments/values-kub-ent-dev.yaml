@@ -4,3 +4,6 @@ replicas: 1
 cronjob:
   cloudsdkCoreProject: entur-dev-1287
   slackName: ror-dev-slack-url
+
+ingress:
+  domainName: dev.entur.io
