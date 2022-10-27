@@ -10,12 +10,12 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   rules:
-    - host: {{ template "app.name" . }}.{{ .Release.Namespace }}.entur.org
+    - host: {{ template "app.name" . }}.{{ .Values.env }}.entur.io
       http:
         paths:
           - pathType: ImplementationSpecific
             backend:
               service:
-               name: {{ template "app.name" . }}
-               port:
-                 number: {{ .Values.service.http.externalPort }}
+                name: {{ template "app.name" . }}
+                port:
+                  number: {{ .Values.service.http.externalPort }}
