@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ProxyEndpoint name="geocoder-v1">
-    <Description></Description>
+<ProxyEndpoint name="geocoder-v2">
+    <Description/>
     <FaultRules>
         <FaultRule name="overQuota">
             <Condition>(fault.name = "QuotaViolation")</Condition>
@@ -76,11 +76,11 @@
         <Response/>
     </PreFlow>
     <HTTPProxyConnection>
-        <BasePath>/geocoder/v1</BasePath>
+        <BasePath>/geocoder/v2</BasePath>
         <Properties/>
         <VirtualHost>entur</VirtualHost>
     </HTTPProxyConnection>
-    <RouteRule name="geocoder-v1">
-        <TargetEndpoint>geocoder-v1</TargetEndpoint>
+    <RouteRule name="geocoder-v2">
+        <TargetEndpoint>geocoder-v2</TargetEndpoint>
     </RouteRule>
 </ProxyEndpoint>
