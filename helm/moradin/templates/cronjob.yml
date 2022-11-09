@@ -45,9 +45,11 @@ spec:
           dnsPolicy: ClusterFirst
           restartPolicy: Never
           schedulerName: default-scheduler
-          securityContext: { }
-          serviceAccount: cronjob-redeploy-{{ template "app.name" . }}
-          serviceAccountName: cronjob-redeploy-{{ template "app.name" . }}
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+          serviceAccountName: application
           terminationGracePeriodSeconds: 30
   schedule: '0 0 * * *'
   successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
