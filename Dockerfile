@@ -4,10 +4,15 @@ ENV WORKDIR /home/moradin
 ENV CLOUDSDK_INSTALL_DIR /usr/local/gcloud/
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
-## Install parallel command
+# Install parallel command
 RUN apk add parallel
 
-## Install build toolchain, install node deps and compile native add-ons
+# Alpine variant needs to include this,
+# so that it gets a fully-featured unzip instead of
+# relying on the version included in BusyBox
+RUN apk add --no-cache unzip
+
+# Install build toolchain, install node deps and compile native add-ons
 RUN apk add --no-cache python3 make g++ curl bash
 
 RUN curl -sSL https://sdk.cloud.google.com | bash
