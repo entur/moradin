@@ -39,24 +39,32 @@ else
   unzip "$zipFileNameLocal" -d csv <<<'y'
 fi
 
-echo "Dropping index..."
-node "$WORKDIR"/node_modules/pelias-schema/scripts/drop_index.js <<<'y'
-
-echo "Creating index..."
-node "$WORKDIR"/node_modules/pelias-schema/scripts/create_index.js
+echo "Splitting the unzipped file"
+unzippedFilename=$(unzip -Z1 "$zipFileNameLocal")
+echo "Unzipped file name: $unzippedFilename"
+cd csv || exit
+mkdir files
+numberOfRecords=$(wc -l < "$unzippedFilename")
+echo "Number of records $numberOfRecords"
+cat "$unzippedFilename" | parallel --header : --pipe -N"$((numberOfRecords / 6))" 'cat >> ./files/file_{#}.csv'
 if [ $? == 1 ]; then
-  echo "Failed to create the index."
+  echo "Failed to split the unzipped file"
 else
-  echo "Importing csv data into elasticsearch..."
-  cd "$WORKDIR"/node_modules/pelias-csv-importer || exit
-  ./bin/start
+  echo "Creating index..."
+  node "$WORKDIR"/node_modules/pelias-schema/scripts/create_index.js
   if [ $? == 1 ]; then
-    echo "Failed to import csv file."
+    echo "Failed to create the index."
   else
-    echo "CSV file imported into elasticsearch, Starting Pelias API"
-    cd "$WORKDIR"/node_modules/pelias-api || exit
-    ./bin/start
+    echo "Importing csv data into elasticsearch..."
+    cd "$WORKDIR"/node_modules/pelias-csv-importer || exit
+    ./bin/parallel 6
+    if [ $? == 1 ]; then
+      echo "Failed to import csv file."
+    else
+      echo "CSV file imported into elasticsearch, Starting Pelias API"
+      cd "$WORKDIR"/node_modules/pelias-api || exit
+      ./bin/start
+    fi
   fi
 fi
-
 echo "Finished with the moradin script."

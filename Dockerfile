@@ -4,6 +4,9 @@ ENV WORKDIR /home/moradin
 ENV CLOUDSDK_INSTALL_DIR /usr/local/gcloud/
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
+## Install parallel command
+RUN apk add parallel
+
 ## Install build toolchain, install node deps and compile native add-ons
 RUN apk add --no-cache python3 make g++ curl bash
 
