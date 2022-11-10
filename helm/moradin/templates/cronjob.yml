@@ -49,6 +49,7 @@ spec:
             runAsNonRoot: true
             runAsUser: 1000
             runAsGroup: 1000
+          serviceAccount: application
           serviceAccountName: application
           terminationGracePeriodSeconds: 30
   schedule: '0 0 * * *'
