@@ -109,6 +109,7 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
+      serviceAccount: application
       serviceAccountName: application
       securityContext:
         runAsNonRoot: true
