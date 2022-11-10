@@ -57,7 +57,7 @@ else
   else
     echo "Importing csv data into elasticsearch..."
     cd "$WORKDIR"/node_modules/pelias-csv-importer || exit
-    ./bin/parallel 6
+    ./bin/parallel 3
     if [ $? == 1 ]; then
       echo "Failed to import csv file."
     else
