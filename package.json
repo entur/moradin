@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "pelias-schema": "^6.4.1",
-    "pelias-csv-importer": "^2.14.0",
+    "pelias-csv-importer": "git+ssh://github.com/mansoor-sajjad/csv-importer.git",
     "pelias-api": "^5.54.0"
   }
 }
