@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<StatisticsCollector async="false" continueOnError="true" enabled="true" name="statisticsCollector.collectEtHeader">
+    <DisplayName>statisticsCollector.collectEtHeader</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <Statistics>
+        <Statistic name="ETClientId" ref="etClientHeaders.id" type="STRING">Unknown</Statistic>
+        <Statistic name="ETClientName" ref="etClientHeaders.name" type="STRING">Unknown</Statistic>
+    </Statistics>
+</StatisticsCollector>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="geocoder-v2">
+    <Description/>
+    <FaultRules>
+        <FaultRule name="overQuota">
+            <Condition>(fault.name = "QuotaViolation")</Condition>
+            <Step>
+                <FaultRules/>
+                <Name>javaScript.rateLimitHeaders</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>assignMessage.rateLimitQuotaHeaders</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>extractVariable.etClientHeaders</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>statisticsCollector.collectEtHeader</Name>
+            </Step>
+        </FaultRule>
+        <FaultRule name="overSpikeArrest">
+            <Condition>(fault.name = "SpikeArrestViolation")</Condition>
+            <Step>
+                <FaultRules/>
+                <Name>javaScript.rateLimitHeaders</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>assignMessage.rateLimitSpikeArrestHeaders</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>extractVariable.etClientHeaders</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>statisticsCollector.collectEtHeader</Name>
+            </Step>
+        </FaultRule>
+    </FaultRules>
+    <Flows/>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <FaultRules/>
+                <Name>flowCallout.globalIpBlacklistTeamRutedata</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>flowCallout.getEnvironmentConfiguration</Name>
+            </Step>
+            <Step>
+                <Condition>message.verb IsNot "OPTIONS"</Condition>
+                <Name>javaScript.rateLimitValues</Name>
+            </Step>
+            <Step>
+                <Condition>message.verb IsNot "OPTIONS"</Condition>
+                <Name>quota</Name>
+            </Step>
+            <Step>
+                <Condition>message.verb IsNot "OPTIONS"</Condition>
+                <Name>spikeArrest</Name>
+            </Step>
+            <Step>
+                <Condition>message.verb IsNot "OPTIONS"</Condition>
+                <Name>javaScript.rateLimitHeaders</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <HTTPProxyConnection>
+        <BasePath>/geocoder/v2</BasePath>
+        <Properties/>
+        <VirtualHost>entur</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="geocoder-v2">
+        <TargetEndpoint>geocoder-v2</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>

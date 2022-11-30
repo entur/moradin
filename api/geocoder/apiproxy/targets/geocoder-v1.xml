@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="geocoder-v2">
+  <Description/>
+  <FaultRules/>
+  <DefaultFaultRule name="target-fault">
+  </DefaultFaultRule>
+  <Flows/>
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response>
+      <Step>
+        <FaultRules/>
+        <Name>extractVariable.etClientHeaders</Name>
+      </Step>
+      <Step>
+        <FaultRules/>
+        <Name>statisticsCollector.collectEtHeader</Name>
+        <Condition>etClientHeaders.name</Condition>
+      </Step>
+    </Response>
+  </PostFlow>
+  <PreFlow name="PreFlow">
+    <Request>
+      <Step>
+        <Name>flowCallout.replaceTargetUrl</Name>
+      </Step>
+    </Request>
+    <Response>
+      <Step>
+        <Name>assignMessage.rateLimitQuotaHeaders</Name>
+      </Step>
+      <Step>
+        <FaultRules/>
+        <Name>assignMessage.addCors</Name>
+      </Step>
+    </Response>
+  </PreFlow>
+  <HTTPTargetConnection>
+    <Properties/>
+    <URL>https://geocoder-v2.INGRESS_ENVIRONMENT</URL>
+  </HTTPTargetConnection>
+</TargetEndpoint>
