@@ -37,6 +37,6 @@
   </PreFlow>
   <HTTPTargetConnection>
     <Properties/>
-    <URL>https://geocoder-v2.INGRESS_ENVIRONMENT</URL>
+    <URL>https://geocoder-v2.INGRESS_ENVIRONMENT/v1</URL>
   </HTTPTargetConnection>
 </TargetEndpoint>
