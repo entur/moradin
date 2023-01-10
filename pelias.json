@@ -15,14 +15,18 @@
         "nsr": [
           "stop_place",
           "stop_place_child",
-          "stop_place_parent"
+          "stop_place_parent",
+          "group_of_stop_places"
         ],
         "kartverket": [
-          "address"
+          "address",
+          "street"
+        ],
+        "osm": [
+          "pointOfInterest"
         ]
       }
-    },
-    "textAnalyzer": "addressit"
+    }
   },
   "logger": {
     "level": "debug"
@@ -34,5 +38,8 @@
     "csv": {
       "datapath": "/home/moradin/csv"
     }
+  },
+  "dbclient": {
+    "batchSize": 5000
   }
 }
