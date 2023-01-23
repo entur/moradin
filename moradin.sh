@@ -44,9 +44,17 @@ unzippedFilename=$(unzip -Z1 "$zipFileNameLocal")
 echo "Unzipped file name: $unzippedFilename"
 cd csv || exit
 mkdir files
-numberOfRecords=$(wc -l < "$unzippedFilename")
+numberOfRecords=$(wc -l <"$unzippedFilename")
 echo "Number of records $numberOfRecords"
-cat "$unzippedFilename" | parallel --header : --pipe -N"$((numberOfRecords / 6))" 'cat >> ./files/file_{#}.csv'
+
+if [ -z "$IMPORT_BATCH_SIZE" ]; then
+  echo "Import batchSize not set, using the default value from pelias.json"
+else
+  echo "Setting the import batchSize to $IMPORT_BATCH_SIZE"
+  jq -c '.dbclient.batchSize = $newBatchSize' --arg newBatchSize "$IMPORT_BATCH_SIZE" "$PELIAS_CONFIG" >tmp.$$.json && mv tmp.$$.json "$PELIAS_CONFIG"
+fi
+
+cat "$unzippedFilename" | parallel --header : --pipe -N"$((numberOfRecords / "$NUMBER_OF_IMPORT_FILE_CHUNKS"))" 'cat >> ./files/file_{#}.csv'
 if [ $? == 1 ]; then
   echo "Failed to split the unzipped file"
 else
@@ -57,7 +65,7 @@ else
   else
     echo "Importing csv data into elasticsearch..."
     cd "$WORKDIR"/node_modules/pelias-csv-importer || exit
-    ./bin/parallel 3
+    ./bin/parallel "$NUMBER_OF_IMPORT_PROCESSES"
     if [ $? == 1 ]; then
       echo "Failed to import csv file."
     else
