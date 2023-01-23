@@ -75,6 +75,12 @@ spec:
               value: Europe/Oslo
             - name: PORT
               value: "4000"
+            - name: NUMBER_OF_IMPORT_PROCESSES
+              value: "3"
+            - name: NUMBER_OF_IMPORT_FILE_CHUNKS
+              value: "3"
+            - name: IMPORT_BATCH_SIZE
+              value: "3000"
           envFrom:
             - configMapRef:
                 name: {{ template "app.name" . }}-bucket
