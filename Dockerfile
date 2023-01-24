@@ -7,6 +7,9 @@ ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 # Install parallel command
 RUN apk add parallel
 
+# Install jq
+RUN apk add jq
+
 # Alpine variant needs to include this,
 # so that it gets a fully-featured unzip instead of
 # relying on the version included in BusyBox
@@ -16,6 +19,8 @@ RUN apk add --no-cache unzip
 RUN apk add --no-cache python3 make g++ curl bash
 
 RUN curl -sSL https://sdk.cloud.google.com | bash
+
+
 
 # change working dir
 WORKDIR ${WORKDIR}
