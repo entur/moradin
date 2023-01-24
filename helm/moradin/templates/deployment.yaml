@@ -26,8 +26,8 @@ spec:
           image: {{ .Values.images.elasticsearch }}
           imagePullPolicy: {{ .Values.images.imagePullPolicy }}
           env:
-            - name: JDK_JAVA_OPTIONS
-              value: -Xmx{{ .Values.resources.xmx }} -Xms{{ .Values.resources.xmx }} -Xss512k -XX:ActiveProcessorCount={{ .Values.resources.cpuRequest }}
+            - name: ES_JAVA_OPTS
+              value: -Xms5g -Xmx5g
             - name: TZ
               value: Europe/Oslo
           ports:

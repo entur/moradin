@@ -36,7 +36,7 @@
       "enabled": false
     },
     "csv": {
-      "datapath": "/home/moradin/csv"
+      "datapath": "/home/moradin/csv/files"
     }
   },
   "dbclient": {

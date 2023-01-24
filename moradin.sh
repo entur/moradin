@@ -54,7 +54,12 @@ else
   jq -c '.dbclient.batchSize = $newBatchSize' --arg newBatchSize "$IMPORT_BATCH_SIZE" "$PELIAS_CONFIG" >tmp.$$.json && mv tmp.$$.json "$PELIAS_CONFIG"
 fi
 
-cat "$unzippedFilename" | parallel --header : --pipe -N"$((numberOfRecords / NUMBER_OF_IMPORT_FILE_CHUNKS))" 'cat >> ./files/file_{#}.csv'
+if [ -z "$NUMBER_OF_IMPORT_FILE_CHUNKS" ]; then
+  cat "$unzippedFilename" | parallel --header : --pipe -N"$((numberOfRecords / NUMBER_OF_IMPORT_FILE_CHUNKS))" 'cat >> ./files/file_{#}.csv'
+else
+  cp "$unzippedFilename" './files'
+fi
+
 if [ $? == 1 ]; then
   echo "Failed to split the unzipped file"
 else

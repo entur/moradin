@@ -30,9 +30,6 @@ RUN npm install
 COPY pelias.json ${WORKDIR}
 ENV PELIAS_CONFIG ${WORKDIR}/pelias.json
 
-# Setting elasticsearch hep size, this is equvilent to java options -Xmx30g -Xms30g
-ENV ES_HEAP_SIZE=30g
-
 COPY moradin.sh ${WORKDIR}
 
 RUN chown -R node:node ${WORKDIR}
