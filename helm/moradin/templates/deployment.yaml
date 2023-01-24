@@ -27,7 +27,7 @@ spec:
           imagePullPolicy: {{ .Values.images.imagePullPolicy }}
           env:
             - name: JDK_JAVA_OPTIONS
-              value: -Xmx{{ .Values.resources.xmx }} -Xss512k -XX:ActiveProcessorCount={{ .Values.resources.cpuRequest }}
+              value: -Xmx{{ .Values.resources.xmx }} -Xms{{ .Values.resources.xmx }} -Xss512k -XX:ActiveProcessorCount={{ .Values.resources.cpuRequest }}
             - name: TZ
               value: Europe/Oslo
           ports:

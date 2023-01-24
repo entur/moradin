@@ -20,8 +20,6 @@ RUN apk add --no-cache python3 make g++ curl bash
 
 RUN curl -sSL https://sdk.cloud.google.com | bash
 
-
-
 # change working dir
 WORKDIR ${WORKDIR}
 
@@ -31,6 +29,9 @@ RUN npm install
 # Setup pelias configuration
 COPY pelias.json ${WORKDIR}
 ENV PELIAS_CONFIG ${WORKDIR}/pelias.json
+
+# Setting elasticsearch hep size, this is equvilent to java options -Xmx30g -Xms30g
+ENV ES_HEAP_SIZE=30g
 
 COPY moradin.sh ${WORKDIR}
 
