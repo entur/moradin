@@ -81,6 +81,8 @@ spec:
               value: "3"
             - name: IMPORT_BATCH_SIZE
               value: "3000"
+            - name: PELIAS_LOG_LEVEL
+              value: "info"
           envFrom:
             - configMapRef:
                 name: {{ template "app.name" . }}-bucket

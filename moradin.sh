@@ -58,6 +58,10 @@ cat "$unzippedFilename" | parallel --header : --pipe -N"$((numberOfRecords / NUM
 if [ $? == 1 ]; then
   echo "Failed to split the unzipped file"
 else
+  if [ -z "$PELIAS_LOG_LEVEL" ]; then
+    echo "Setting log level to $PELIAS_LOG_LEVEL"
+    jq -c '.logger.level = $newLogLevel' --arg newLogLevel "$PELIAS_LOG_LEVEL" "$PELIAS_CONFIG" >tmp.$$.json && mv tmp.$$.json "$PELIAS_CONFIG"
+  fi
   echo "Creating index..."
   node "$WORKDIR"/node_modules/pelias-schema/scripts/create_index.js
   if [ $? == 1 ]; then
