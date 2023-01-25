@@ -55,9 +55,9 @@ else
 fi
 
 if [ -z "$NUMBER_OF_IMPORT_FILE_CHUNKS" ]; then
-  cat "$unzippedFilename" | parallel --header : --pipe -N"$((numberOfRecords / NUMBER_OF_IMPORT_FILE_CHUNKS))" 'cat >> ./files/file_{#}.csv'
-else
   cp "$unzippedFilename" './files'
+else
+  cat "$unzippedFilename" | parallel --header : --pipe -N"$((numberOfRecords / NUMBER_OF_IMPORT_FILE_CHUNKS))" 'cat >> ./files/file_{#}.csv'
 fi
 
 if [ $? == 1 ]; then
